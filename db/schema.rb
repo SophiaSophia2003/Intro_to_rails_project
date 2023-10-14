@@ -10,10 +10,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_10_14_175224) do
+ActiveRecord::Schema[7.0].define(version: 2023_10_14_185235) do
   create_table "authors", charset: "utf8mb4", force: :cascade do |t|
     t.string "name"
     t.date "birth_date"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "book_authors", charset: "utf8mb4", force: :cascade do |t|
+    t.integer "book_id"
+    t.integer "author_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "book_categories", charset: "utf8mb4", force: :cascade do |t|
+    t.integer "book_id"
+    t.integer "category_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -29,10 +43,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_14_175224) do
     t.string "preview_link"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "category_id", null: false
-    t.bigint "author_id", null: false
-    t.index ["author_id"], name: "index_books_on_author_id"
-    t.index ["category_id"], name: "index_books_on_category_id"
   end
 
   create_table "categories", charset: "utf8mb4", force: :cascade do |t|
@@ -49,6 +59,4 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_14_175224) do
     t.datetime "updated_at", null: false
   end
 
-  add_foreign_key "books", "authors"
-  add_foreign_key "books", "categories"
 end
