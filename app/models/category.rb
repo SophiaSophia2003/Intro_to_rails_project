@@ -1,6 +1,7 @@
 class Category < ApplicationRecord
-  has_many :book_categories
-  has_many :books, through: :book_categories
+  has_and_belongs_to_many :books
+  # has_many :book_categories
+  # has_many :books, through: :book_categories
   validates_presence_of   :name
   self.per_page = 2
   WillPaginate.per_page = 2

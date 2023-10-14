@@ -5,4 +5,6 @@ class Book < ApplicationRecord
 
   validates :title,:isbn, presence: true
   validates_uniqueness_of :isbn
+  self.per_page = 10
+  WillPaginate.per_page = 10
 end
