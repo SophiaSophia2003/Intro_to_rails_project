@@ -18,7 +18,7 @@ books_requests = [{ query_params: "business", size: 20 },
 { query_params: "fashion", size: 20 }]
 books_requests.each do |request|
   # API call
-  url = "https://www.googleapis.com/books/v1/volumes?q=#{request[:query_params]}&maxResults=#{request[:size]}&startIndex=1&printType=books
+  url = "https://www.googleapis.com/books/v1/volumes?q=#{request[:query_params]}&maxResults=#{request[:size]}&startIndex=1&printType=books"
   uri = URI(url)
   response = Net::HTTP.get(uri)
   data = JSON.parse(response)
@@ -29,15 +29,16 @@ books_requests.each do |request|
     description = element["volumeInfo"]["description"]
     lang = element["volumeInfo"]["language"]
     isbn = element["volumeInfo"]["industryIdentifiers"]&.dig(0, "identifier")
+    publisher_name = element["volumeInfo"]["publisher"]
     published_date = element["volumeInfo"]["publishedDate"]
     preview_link = element["volumeInfo"]["previewLink"]
     authors = element["volumeInfo"]["authors"]
     categories = element["volumeInfo"]["categories"]
 
-    book_unique_fields = [isbn, authors, categories,publisher_name, description ]
+    book_unique_fields = [isbn, authors, categories,publisher_name,published_date, description ]
 
     # If any of the required filed is null or equal zero then skip this book api response for book
-    if book_attributes.any? { |attribute| attribute.nil? || attribute == 0 }
+    if book_unique_fields.any? { |attribute| attribute.nil? || attribute == 0 }
       next
     end
 
@@ -56,11 +57,10 @@ books_requests.each do |request|
         category.books << book
       end
     end
-
     if authors.present?
       authors.each do |author_name|
         author = Author.find_or_create_by(name: author_name)
-        author.books << book
+        author.save
       end
     end
 
@@ -70,3 +70,8 @@ books_requests.each do |request|
     publisher = Publisher.find_or_create_by(name: publisher_name)
   end
 end
+
+
+  Book.all.each do |book|
+   BookAuthor.create(book_id: book.id,author_id: Author.first.id)
+  end

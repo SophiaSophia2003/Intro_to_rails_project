@@ -9,6 +9,7 @@ class CreateBooks < ActiveRecord::Migration[7.0]
       t.string :image_small_thumbnail
       t.string :image_thumbnail
       t.string :preview_link
+      t.integer :author_id
 
       t.timestamps
     end

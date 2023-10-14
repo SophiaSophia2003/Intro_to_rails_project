@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_10_14_185235) do
+ActiveRecord::Schema[7.0].define(version: 2023_10_15_072358) do
   create_table "authors", charset: "utf8mb4", force: :cascade do |t|
     t.string "name"
     t.date "birth_date"
@@ -18,18 +18,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_14_185235) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "book_authors", charset: "utf8mb4", force: :cascade do |t|
+  create_table "book_authors", id: false, charset: "utf8mb4", force: :cascade do |t|
     t.integer "book_id"
     t.integer "author_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "book_categories", charset: "utf8mb4", force: :cascade do |t|
-    t.integer "book_id"
-    t.integer "category_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
   create_table "books", charset: "utf8mb4", force: :cascade do |t|
@@ -41,11 +32,27 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_14_185235) do
     t.string "image_small_thumbnail"
     t.string "image_thumbnail"
     t.string "preview_link"
+    t.integer "author_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "category_id", null: false
+    t.index ["category_id"], name: "index_books_on_category_id"
+  end
+
+  create_table "books_categories", id: false, charset: "utf8mb4", force: :cascade do |t|
+    t.bigint "book_id"
+    t.bigint "category_id"
+    t.index ["book_id"], name: "index_books_categories_on_book_id"
+    t.index ["category_id"], name: "index_books_categories_on_category_id"
+  end
+
+  create_table "categories", charset: "utf8mb4", force: :cascade do |t|
+    t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "categories", charset: "utf8mb4", force: :cascade do |t|
+  create_table "publishers", charset: "utf8mb4", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -59,4 +66,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_14_185235) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "books", "categories"
+  add_foreign_key "books_categories", "books"
+  add_foreign_key "books_categories", "categories"
 end
