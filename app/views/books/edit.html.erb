@@ -1,0 +1,32 @@
+<!-- app/views/books/edit.html.erb -->
+
+<h1>Edit Book</h1>
+
+<%= form_for(@book) do |f| %>
+  <div class="form-group">
+    <%= f.label :title %>
+    <%= f.text_field :title, class: 'form-control' %>
+  </div>
+
+    <div class="form-group">
+    <%= f.label :author_id %>
+    <%#= f.select :authors, options_for_select(@authors.map { |c| [c.author_name, c.a_id] }), { include_blank: 'Select a author' }, class: 'form-control' %>
+    <%= f.collection_select :author_id, Author.all, :id, :name, {}, multiple: true , class: 'form-control'%>
+  </div>
+
+    <div class="form-group">
+        <%= f.label :category_ids %>
+  <%= f.collection_select :category_ids, Category.all, :id, :name, {}, multiple: true , class: 'form-control'%>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :description %>
+    <%= f.text_area :description, class: 'form-control' %>
+  </div>
+
+  <div class="form-group">
+    <%= f.submit 'Update Book', class: 'btn btn-primary' %>
+  </div>
+<% end %>
+
+<%= link_to 'Back', books_path, class: 'btn btn-secondary' %>

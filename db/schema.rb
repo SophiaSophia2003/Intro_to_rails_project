@@ -35,8 +35,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_15_072358) do
     t.integer "author_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "category_id", null: false
-    t.index ["category_id"], name: "index_books_on_category_id"
   end
 
   create_table "books_categories", id: false, charset: "utf8mb4", force: :cascade do |t|
@@ -66,7 +64,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_15_072358) do
     t.datetime "updated_at", null: false
   end
 
-  add_foreign_key "books", "categories"
   add_foreign_key "books_categories", "books"
   add_foreign_key "books_categories", "categories"
 end

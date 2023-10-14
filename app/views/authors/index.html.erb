@@ -1,0 +1,27 @@
+<style type="text/css">
+  #example-image{
+    width: 100px;
+  }
+</style>
+<h1 style="padding-bottom: 10px;">Authors</h1>
+
+
+<table class="table table-striped table-bordered" style="width: 100%;">
+  <thead style="width: 100%;">
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Name</th>
+      <th scope="col">Delete</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @authors.each do |author| %>
+      <tr>
+        <td><%= author.id %></td>
+        <td><%= link_to author.name, author_path(author) %></td>
+        <td><%= button_to 'Delete', author, method: :delete, form:{ data: { turbo_confirm: 'Are you sure?' }} ,class: "btn btn-danger" %></td>        
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<%= will_paginate @authors, :style => 'color:blue' %>

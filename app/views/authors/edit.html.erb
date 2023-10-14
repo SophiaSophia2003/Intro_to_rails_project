@@ -1,0 +1,16 @@
+<!-- app/views/authors/edit.html.erb -->
+
+<h1>Edit Author</h1>
+
+<%= form_for(@author) do |f| %>
+  <div class="form-group">
+    <%= f.label :name %>
+    <%= f.text_field :name, class: 'form-control' %>
+  </div>
+
+  <div class="form-group">
+    <%= f.submit 'Update Author', class: 'btn btn-primary' %>
+  </div>
+<% end %>
+
+<%= link_to 'Back', authors_path, class: 'btn btn-secondary' %>
