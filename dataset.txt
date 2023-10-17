@@ -1,0 +1,47 @@
+Datasets
+
+Books {
+
+ id: integer,
+ title: string,
+ published_date: string,
+ description: text,
+ isbn: string,
+ language: string,
+ image_small_thumbnail: string,
+ image_thumbnail: string,
+ preview_link: string,
+ author_id: integer
+
+ }
+
+ Authors {
+
+  id: integer,
+  name: string,
+  birth_date: date
+
+ }
+
+ Categories {
+
+  id: integer,
+  name: string
+
+ }
+
+ Publishers {
+
+	 id: integer,
+	 name: string
+
+ }
+
+ Reviews {
+
+  id: integer,
+  rating: integer,
+  comment: text,
+  review_date: datetime
+
+ }
