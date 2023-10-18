@@ -17,7 +17,7 @@ books_requests = [{ query_params: "business", size: 20 },
 { query_params: "sports", size: 20 },
 { query_params: "fashion", size: 20 }]
 books_requests.each do |request|
-  # API call
+  # We are using google api to fetch the data based on the category and page size is 20.
   url = "https://www.googleapis.com/books/v1/volumes?q=#{request[:query_params]}&maxResults=#{request[:size]}&startIndex=1&printType=books"
   uri = URI(url)
   response = Net::HTTP.get(uri)
@@ -71,7 +71,7 @@ books_requests.each do |request|
   end
 end
 
-
+# Creating a book author record based on book record present in our db and author.
   Book.all.each do |book|
    BookAuthor.create(book_id: book.id,author_id: Author.first.id)
   end
