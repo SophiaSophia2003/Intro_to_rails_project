@@ -3,31 +3,32 @@
     width: 100px;
   }
 </style>
+<div class="row">
+  <div class="col-sm-6">
+    <div><%= image_tag @book.image_small_thumbnail, class: "img-responsive", id: "example-image" %></div>
+  </div>
+  <div class="col-sm-6">
+    <div class="row">
+    <div class="col-sm-12"><b> Name: </b></b><%= @book.title %></div>
+    <div class="col-sm-12"><b> Description: </b><%= @book.description %></div>
+    <div class="col-sm-12"><b> Cover Image: </b><%= image_tag @book.book_cover.image, class: "img-responsive", id: "example-image" %></div>
+    <div class="col-sm-12"><b> Author: </b><%= @authors.map{ |c| link_to(c.author_name,author_path(c.a_id))}.join(", ").html_safe %></div>
+    <div class="col-sm-12"><b> Categories: </b><%= @book.categories.map{ |c| link_to(c.name,category_path(c.id))}.join(", ").html_safe %></div>
+    <br>
+    <br>
+    <br>
+    <div class="col-sm-12" style="padding-top: 50px">
+      <div class="row">
+        <div class="col-sm-2"><%= link_to "Edit", edit_book_path(@book) , class: "btn btn-primary"%>
+          
+        </div>
+        <div class="col-sm-2"><%= button_to 'Delete', @book, method: :delete, form:{ data: { turbo_confirm: 'Are you sure?' }} ,class: "btn btn-danger" %></div>
+      </div>
+      <div class="col-sm-8"></div>
+    </div>
+  </div>
+    
 
-<table class="table table-striped table-bordered" style="width: 100%;">
-  <thead style="width: 100%;">
-    <tr>
-      <th scope="col">Name</th>
-      <th scope="col">Description</th>
-      <th scope="col">Image</th>
-      <th scope="col">Author</th>
-      <th scope="col">category</th>
-      <th scope="col">Edit</th>
-      <th scope="col">Delete</th>
-    </tr>
-  </thead>
-  <tbody>
-      <tr>
-        <td><%= @book.title %></td>
-        <td><%= @book.description %></td>
-        <td><%= image_tag @book.image_small_thumbnail, class: "img-responsive", id: "example-image" %></td>
-        <td><%= @authors.map{ |c| link_to(c.author_name,author_path(c.a_id))}.join(", ").html_safe %></td>
+  </div>
 
-        <td><%= @book.categories.map{ |c| link_to(c.name,category_path(c.id))}.join(", ").html_safe %></td>
-        <td><%= link_to @book.title, edit_book_path(@book) , class: "btn btn-primary"%></td>
-        <td><%= button_to 'Delete', @book, method: :delete, form:{ data: { turbo_confirm: 'Are you sure?' }} ,class: "btn btn-danger" %></td>
-
-       
-      </tr>
-  </tbody>
-</table>
+</div>

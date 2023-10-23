@@ -3,15 +3,9 @@ class BooksController < ApplicationController
   before_action :set_book, only: [:show, :edit, :update, :destroy]
 
   def index
-  	if params[:category_id].present?
-  	  @books = Book.where(category_id: params[:category_id]).paginate(:page => params[:page], :per_page => 10)	
-
-  	  respond_to do |format|
-        format.json { render json: @books }
-      end
-    else
-      @books = Book.paginate(:page => params[:page], :per_page => 10)
-  	end
+    @books = Book.paginate(:page => params[:page], :per_page => 10)
+  	@books = Book.joins(:categories).select("books.*,categories.*").where(categories: {id: params[:category]}).paginate(:page => params[:page], :per_page => 10)	if params[:category].present?
+    @books = @books.joins(:categories).select("books.*,categories.*").where("title LIKE ?", "%#{params[:search]}%").paginate(:page => params[:page], :per_page => 10) if params[:search].present?
   end
 
   def show
@@ -38,6 +32,12 @@ class BooksController < ApplicationController
 
   def update
     if @book.update(book_params)
+      author_ids = book_params[:author_id].to_a.reject(&:blank?)
+      if author_ids.present?
+        author_ids.each_with_index do |a_id, index|
+          BookAuthor.create!(author_id: a_id,book_id: @book.id)
+        end
+      end
       redirect_to @book, notice: 'Book was successfully updated.'
     else
       render :edit
@@ -49,6 +49,13 @@ class BooksController < ApplicationController
     redirect_to books_url, notice: 'Book was successfully destroyed.'
   end
 
+  # def search
+  #   byebug
+  #   @search = Book.new(search_params)
+  #   @results = @search.perform_search
+  # end
+
+
   private
 
   def set_book
@@ -56,6 +63,10 @@ class BooksController < ApplicationController
   end
 
   def book_params
-    params.require(:book).permit(:title, :description, :author_id , category_ids: [])
+    params.require(:book).permit(:title, :description, author_id: [] , category_ids: [])
   end
+
+  # def search_params
+  #   params.require(:search).permit(:keyword, :category_id)
+  # end  
 end

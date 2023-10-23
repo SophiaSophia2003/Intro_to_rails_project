@@ -10,7 +10,6 @@
 
     <div class="form-group">
     <%= f.label :author_id %>
-    <%#= f.select :authors, options_for_select(@authors.map { |c| [c.author_name, c.a_id] }), { include_blank: 'Select a author' }, class: 'form-control' %>
     <%= f.collection_select :author_id, Author.all, :id, :name, {}, multiple: true , class: 'form-control'%>
   </div>
 
@@ -28,5 +27,6 @@
     <%= f.submit 'Update Book', class: 'btn btn-primary' %>
   </div>
 <% end %>
-
+<div class="form-group">
 <%= link_to 'Back', books_path, class: 'btn btn-secondary' %>
+</div>
