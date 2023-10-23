@@ -1,0 +1,19 @@
+<!-- app/views/shared/_search_form.html.erb -->
+<div class="row">
+	<div class="col-sm-5">
+		<%= form_tag(books_path, method: :get, class: "search-form") do %>
+		  <div class="form-group">
+		    <%= text_field_tag :search, params[:search], placeholder: "Search by title, author, etc.", class: "form-control" %>
+		  </div>
+		  </div>
+		  <div class="col-sm-5">
+		  <div class="form-group">
+		    <%= select_tag :category, options_for_select(Category.all.map { |c| [c.name, c.id] }, params[:category]), include_blank: "All Categories", class: "form-control" %>
+		  </div>
+		  </div>
+		  <div class="col-sm-2">
+		  <%= submit_tag "Search", class: "btn btn-primary" %>
+		<% end %>
+	</div>
+	</div>
+</div>

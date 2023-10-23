@@ -8,5 +8,10 @@ Rails.application.routes.draw do
   resources :authors
   resources :categories
   resources :aboutes
+  resources :books do
+    collection do
+      get :search
+    end
+  end
 
 end

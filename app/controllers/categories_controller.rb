@@ -6,6 +6,7 @@ class CategoriesController < ApplicationController
   end
 
   def show
+    @books = Book.joins(:categories).select("books.*").where(categories: {id: params[:id]}).paginate(:page => params[:page], :per_page => 10)
   end
 
   def new

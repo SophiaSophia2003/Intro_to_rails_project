@@ -4,9 +4,10 @@ class BooksController < ApplicationController
 
   def index
     @books = Book.paginate(:page => params[:page], :per_page => 10)
-  	@books = Book.joins(:categories).select("books.*,categories.*").where(categories: {id: params[:category]}).paginate(:page => params[:page], :per_page => 10)	if params[:category].present?
-    @books = @books.joins(:categories).select("books.*,categories.*").where("title LIKE ?", "%#{params[:search]}%").paginate(:page => params[:page], :per_page => 10) if params[:search].present?
+    @books = Book.joins(:categories).select("books.*,categories.id as cat_id").where(categories: {id: params[:category]}).paginate(:page => params[:page], :per_page => 10)	if params[:category].present?
+    @books = @books.joins(:categories).select("books.*,categories.id as cat_id").where("title LIKE ?", "%#{params[:search]}%").paginate(:page => params[:page], :per_page => 10) if params[:search].present?
   end
+
 
   def show
     @authors = BookAuthor.joins(:author).select("authors.name as author_name, authors.id as a_id").where(book_id: @book.id)
@@ -68,5 +69,5 @@ class BooksController < ApplicationController
 
   # def search_params
   #   params.require(:search).permit(:keyword, :category_id)
-  # end  
+  # end
 end

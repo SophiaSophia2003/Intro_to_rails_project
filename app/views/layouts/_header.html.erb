@@ -24,23 +24,27 @@
 <nav class="navbar navbar-expand-lg">
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
   	<div class="row" style="padding: 20px;">
-      
-  		<div class="col-sm-2"><a class="navbar-brand" href="/">Books Store</a></div>
-  	<div class="col-sm-5" style="padding: 20px;">
-    <ul class="navbar-nav mr-auto" style="list-style-type: none;">
-      <li class="nav-item active">
-         <%= link_to "Book", books_path, class: "nav-link" %>
-      </li>
-      <li class="nav-item">
-      	<%= link_to "Author", authors_path, class: "nav-link" %>
-      </li>
-      <li class="nav-item">
-         <%= link_to "Category", categories_path, class: "nav-link" %>
-      </li>
-      <li class="nav-item">
-         <%= link_to "About Us", aboutes_path, class: "nav-link" %>
-      </li>      
-    </ul>
+        
+    	<div class="col-sm-2"><a class="navbar-brand" href="/">Books Store</a></div>
+    	<div class="col-sm-5" style="padding: 20px;">
+      <ul class="navbar-nav mr-auto" style="list-style-type: none;">
+        <li class="nav-item active">
+           <%= link_to "Book", books_path, class: "nav-link" %>
+        </li>
+        <li class="nav-item">
+        	<%= link_to "Author", authors_path, class: "nav-link" %>
+        </li>
+        <li class="nav-item">
+           <%= link_to "Category", categories_path, class: "nav-link" %>
+        </li>
+        <li class="nav-item">
+           <%= link_to "About Us", aboutes_path, class: "nav-link" %>
+        </li>      
+      </ul>
+      </div>
+      <div class="col-sm-5" style="padding: 20px;">
+         <%= render 'shared/search_form' %>
+      </div>
     </div>
   </div>
 </nav>
