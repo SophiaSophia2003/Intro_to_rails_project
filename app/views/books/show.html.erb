@@ -1,4 +1,4 @@
-<style type="text/css">
+<style>
   #example-image{
     width: 100px;
   }
@@ -16,7 +16,7 @@
   <%end%>
   <div class="col-sm-6">
     <div class="row">
-    <div class="col-sm-12"><b> Name: </b></b><%= @book.title %></div>
+    <div class="col-sm-12"><b> Name: </b><%= @book.title %></div>
     <div class="col-sm-12"><b> Description: </b><%= @book.description %></div>
     <div class="col-sm-12"><b> Cover Image: </b><%= image_tag @book.book_cover.image, class: "img-responsive", id: "example-image" %></div>
     <div class="col-sm-12"><b> Author: </b><%= @authors.map{ |c| link_to(c.author_name,author_path(c.a_id))}.join(", ").html_safe %></div>

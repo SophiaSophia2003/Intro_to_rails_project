@@ -9,5 +9,4 @@ class Review < ApplicationRecord
   }
 
 end
-# In progress
 
