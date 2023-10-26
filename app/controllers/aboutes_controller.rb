@@ -2,6 +2,52 @@ class AboutesController < ApplicationController
 
   def index
     @about_title = "About Us"
-    @about_content = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
+    @about_content = " In this project, we used google API as a data source. Here is the description of datasets we are using in this project.
+
+    Books {
+
+     id: integer,
+     title: string,
+     published_date: string,
+     description: text,
+     isbn: string,
+     language: string,
+     image_small_thumbnail: string,
+     image_thumbnail: string,
+     preview_link: string,
+     author_id: integer
+
+     }
+
+     Authors {
+
+      id: integer,
+      name: string,
+      birth_date: date
+
+     }
+
+     Categories {
+
+      id: integer,
+      name: string
+
+     }
+
+     Publishers {
+
+       id: integer,
+       name: string
+
+     }
+
+     Reviews {
+
+      id: integer,
+      rating: integer,
+      comment: text,
+      review_date: datetime
+
+     }."
   end
 end
