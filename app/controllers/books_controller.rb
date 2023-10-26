@@ -10,7 +10,7 @@ class BooksController < ApplicationController
 
 
   def show
-    @authors = BookAuthor.joins(:author).select("authors.name as author_name, authors.id as a_id").where(book_id: @book.id)
+    @authors = BookAuthor.joins(:author).select("authors.name as author_name, authors.id as a_id").where(book_id: @book.id).distinct
   end
 
   def new
